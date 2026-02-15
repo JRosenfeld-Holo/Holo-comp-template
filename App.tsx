@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu, X, Globe, Users, Server,
   ShieldCheck, Zap, Cpu, LayoutDashboard,
@@ -674,13 +674,6 @@ const Navbar = () => {
               {link}
             </a>
           ))}
-          <a
-            href="#network"
-            className="text-sm font-medium text-gray-400 hover:text-brand-lime transition-colors px-4 py-2 rounded-xl hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-lime focus-visible:ring-offset-2 focus-visible:ring-offset-brand-deep"
-            onClick={(e) => handleLinkClick(e, 'network')}
-          >
-            Global Network
-          </a>
         </div>
 
         <div className="hidden md:flex items-center gap-4">
@@ -712,7 +705,6 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="h-px bg-white/10 my-4" />
-              <a href="#network" className="text-2xl font-medium text-gray-300 font-display" onClick={(e) => handleLinkClick(e, 'network')}>Global Network</a>
               <Button variant="primary" className="w-full justify-center py-4 text-lg" href="https://www.hologram.io/contact-sales/">Talk to an Expert</Button>
             </div>
           </motion.div>
@@ -725,78 +717,181 @@ const Navbar = () => {
 // --- Hero (Cinematic with Aurora + Gradient Text) ---
 
 const Hero = () => {
-  const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 600], [1, 0]);
-  const y = useTransform(scrollY, [0, 600], [0, 100]);
-
   const [reveal, setReveal] = useState(false);
 
   useEffect(() => {
     setReveal(true);
   }, []);
 
-  const heroStats = [
-    { value: '50%', label: 'Cost savings vs. carriers' },
-    { value: '550+', label: 'Global networks' },
-    { value: '190+', label: 'Countries covered' },
+  const globeStats = [
+    { value: 550, suffix: '+', label: 'Networks', icon: <Signal className="w-4 h-4" /> },
+    { value: 190, suffix: '+', label: 'Countries', icon: <Globe className="w-4 h-4" /> },
+    { value: 99.95, suffix: '%', decimals: 2, label: 'Uptime', icon: <ShieldCheck className="w-4 h-4" /> },
   ];
 
   return (
-    <section className="relative min-h-[85vh] md:min-h-screen flex flex-col items-center justify-center pt-28 md:pt-36 pb-16 md:pb-24 overflow-visible">
+    <section id="network" className="relative min-h-screen pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden scroll-mt-24">
 
       {/* Layered cinematic aurora */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-deep via-[#040812] to-brand-deep" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-brand-lime/[0.04] rounded-full blur-[200px]" />
         <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[1400px] h-[900px] aurora-glow rounded-full blur-[200px] opacity-40" />
-        <div className="absolute top-[10%] right-[-15%] w-[600px] h-[600px] bg-brand-lime/[0.07] rounded-full blur-[150px]" />
-        <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-emerald-500/[0.05] rounded-full blur-[130px]" />
-        <div className="absolute top-[60%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-lime/[0.03] rounded-full blur-[180px]" />
-        {/* Radial grid lines for depth */}
+        <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-emerald-500/[0.03] rounded-full blur-[150px]" />
+        <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-brand-lime/[0.03] rounded-full blur-[150px]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(191,253,17,0.03)_0%,transparent_70%)]" />
       </div>
 
-      <motion.div
-        style={{ y, opacity }}
-        className="w-full max-w-5xl mx-auto text-center z-20 flex flex-col items-center px-4"
-      >
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="shimmer-border inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-brand-lime/[0.06] text-brand-lime text-xs font-semibold mb-10 backdrop-blur-md border border-brand-lime/10"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-lime opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-lime"></span>
-          </span>
-          Trusted by 6,000+ IoT Companies Worldwide
-        </motion.div>
+      <div className="max-w-7xl mx-auto px-4 md:px-12 lg:px-24 relative z-10">
+        {/* Header copy */}
+        <div className="text-center mb-4 md:mb-0">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="shimmer-border inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-brand-lime/[0.06] text-brand-lime text-xs font-semibold mb-8 md:mb-10 backdrop-blur-md border border-brand-lime/10"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-lime opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-lime"></span>
+            </span>
+            Trusted by 6,000+ IoT Companies Worldwide
+          </motion.div>
 
-        {/* Headline */}
-        <div className="reveal-container mb-6 w-full">
-          <h1 className={`reveal-text text-[2.5rem] md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-bold leading-[1.05] tracking-tight font-display pb-2 ${reveal ? 'active' : ''}`}>
-            <span className="bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/60">Outages Are</span>
-            <br />
-            <span className="text-shimmer">Obsolete.</span>
-          </h1>
+          {/* Headline */}
+          <div className="reveal-container mb-6 w-full">
+            <h1 className={`reveal-text text-[2.5rem] md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-bold leading-[1.05] tracking-tight font-display pb-2 ${reveal ? 'active' : ''}`}>
+              <span className="bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40">One SIM.</span>
+              <br />
+              <span className="gradient-text">Every network.</span>
+            </h1>
+          </div>
+
+          {/* Subtitle */}
+          <div className="reveal-container mb-8 md:mb-10 w-full flex justify-center">
+            <p
+              className={`reveal-text text-base md:text-xl text-gray-400 leading-relaxed max-w-2xl font-light ${reveal ? 'active' : ''}`}
+              style={{ transitionDelay: '0.15s' }}
+            >
+              Stop losing revenue to dead zones and carrier lock-in. Hologram's <strong className="text-white font-medium">Hyper SIM</strong> connects natively to <strong className="text-white font-medium">550+ carriers across 190+ countries</strong> — with intelligent fallback that keeps your fleet online.
+            </p>
+          </div>
+
         </div>
 
-        {/* Subtitle */}
-        <div className="reveal-container mb-10 w-full flex justify-center">
-          <p
-            className={`reveal-text text-base md:text-xl text-gray-400 leading-relaxed max-w-2xl font-light ${reveal ? 'active' : ''}`}
-            style={{ transitionDelay: '0.15s' }}
+        {/* Globe + floating stats */}
+        <div className="relative flex items-center justify-center -my-4 md:-my-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
           >
-            Stop losing revenue to dead zones and carrier lock-in. Hologram's <strong className="text-white font-medium">Hyper SIM</strong> gives every device instant access to 550+ networks with automatic failover — so your fleet never goes dark.
-          </p>
+            <GridGlobe />
+          </motion.div>
+
+          {/* Large ambient glow behind globe */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brand-lime/[0.06] blur-[150px] rounded-full pointer-events-none" />
+
+          {/* Floating stat pills — positioned around the globe */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.6, duration: 0.7 }}
+            className="absolute left-0 md:left-[5%] top-[20%] hidden md:block"
+          >
+            <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl px-5 py-4 shadow-2xl">
+              <div className="flex items-center gap-3 mb-1">
+                <div className="w-8 h-8 rounded-lg bg-brand-lime/20 flex items-center justify-center text-brand-lime"><Signal className="w-4 h-4" /></div>
+                <span className="text-2xl font-bold text-white font-display"><AnimatedCounter end={550} suffix="+" /></span>
+              </div>
+              <p className="text-xs text-gray-400 pl-11">Carrier networks</p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.8, duration: 0.7 }}
+            className="absolute right-0 md:right-[5%] top-[30%] hidden md:block"
+          >
+            <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl px-5 py-4 shadow-2xl">
+              <div className="flex items-center gap-3 mb-1">
+                <div className="w-8 h-8 rounded-lg bg-brand-lime/20 flex items-center justify-center text-brand-lime"><Globe className="w-4 h-4" /></div>
+                <span className="text-2xl font-bold text-white font-display"><AnimatedCounter end={190} suffix="+" /></span>
+              </div>
+              <p className="text-xs text-gray-400 pl-11">Countries covered</p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1, duration: 0.7 }}
+            className="absolute left-[10%] md:left-[15%] bottom-[15%] hidden md:block"
+          >
+            <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl px-5 py-4 shadow-2xl">
+              <div className="flex items-center gap-3 mb-1">
+                <div className="w-8 h-8 rounded-lg bg-brand-lime/20 flex items-center justify-center text-brand-lime"><ShieldCheck className="w-4 h-4" /></div>
+                <span className="text-2xl font-bold text-white font-display"><AnimatedCounter end={99.95} suffix="%" decimals={2} /></span>
+              </div>
+              <p className="text-xs text-gray-400 pl-11">Guaranteed uptime</p>
+            </div>
+          </motion.div>
+
+          {/* Live activity indicator */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1.2, duration: 0.7 }}
+            className="absolute right-[8%] md:right-[12%] bottom-[20%] hidden lg:block"
+          >
+            <div className="bg-white/[0.04] backdrop-blur-xl border border-brand-lime/20 rounded-2xl px-5 py-4 shadow-2xl">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-lime opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-lime"></span>
+                </span>
+                <span className="text-xs font-semibold text-brand-lime font-display">LIVE</span>
+              </div>
+              <div className="text-[10px] text-gray-400 space-y-1">
+                <div className="flex justify-between gap-6"><span>Devices online</span><span className="text-white font-medium">2.4M+</span></div>
+                <div className="flex justify-between gap-6"><span>Data sessions</span><span className="text-white font-medium">847K</span></div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Mobile stat row (visible on small screens) */}
+        <div className="grid grid-cols-3 gap-3 mt-4 md:hidden">
+          {globeStats.map((stat, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="bg-white/[0.04] backdrop-blur-sm border border-white/10 rounded-xl p-3 text-center"
+            >
+              <div className="text-brand-lime mb-1 flex justify-center">{stat.icon}</div>
+              <div className="text-lg font-bold text-white font-display">
+                <AnimatedCounter end={stat.value} suffix={stat.suffix} decimals={stat.decimals || 0} />
+              </div>
+              <div className="text-[10px] text-gray-400">{stat.label}</div>
+            </motion.div>
+          ))}
         </div>
 
         {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
+          transition={{ duration: 0.5, delay: 0.5, type: "spring", stiffness: 200 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10 md:mt-6 relative z-20"
         >
           <Button
             variant="primary"
@@ -812,22 +907,7 @@ const Hero = () => {
           </Button>
           <Button variant="outline" className="px-10 py-4 text-lg" href="https://www.hologram.io/contact-sales/">Talk to Sales</Button>
         </motion.div>
-
-        {/* Stat strip — social proof above the fold */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.6 }}
-          className="flex items-center justify-center gap-6 md:gap-12 mt-4"
-        >
-          {heroStats.map((stat, i) => (
-            <div key={i} className="flex flex-col items-center">
-              <span className="text-xl md:text-2xl font-bold text-white font-display">{stat.value}</span>
-              <span className="text-[10px] md:text-xs text-gray-500 mt-0.5">{stat.label}</span>
-            </div>
-          ))}
-        </motion.div>
-      </motion.div>
+      </div>
 
     </section>
   );
@@ -888,52 +968,85 @@ const ComparisonTable = () => {
         </motion.div>
       </div>
       <div className="max-w-5xl mx-auto overflow-hidden">
-        <div className="overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-          <div className="min-w-[640px] md:min-w-0 shimmer-border rounded-3xl overflow-hidden">
-            <table className="w-full bg-white/[0.02] border border-white/[0.06] rounded-3xl backdrop-blur-sm shadow-2xl border-collapse">
-              <thead>
-                <tr className="border-b border-white/10 bg-gradient-to-r from-brand-lime/[0.08] via-brand-lime/[0.02] to-transparent">
-                  <th scope="col" className="p-4 md:p-8 text-left text-gray-400 font-medium text-xs md:text-base font-display w-1/3">Feature</th>
-                  <th scope="col" className="p-4 md:p-8 text-left w-1/3">
-                    <div className="flex items-center h-5 md:h-7 px-2">
-                      <img src="/logo-lime.png" alt="Hologram" className="h-full w-auto object-contain" />
+        {/* Desktop table */}
+        <div className="hidden md:block shimmer-border rounded-3xl overflow-hidden">
+          <table className="w-full bg-white/[0.02] border border-white/[0.06] rounded-3xl backdrop-blur-sm shadow-2xl border-collapse">
+            <thead>
+              <tr className="border-b border-white/10 bg-gradient-to-r from-brand-lime/[0.08] via-brand-lime/[0.02] to-transparent">
+                <th scope="col" className="p-8 text-left text-gray-400 font-medium text-base font-display w-1/3">Feature</th>
+                <th scope="col" className="p-8 text-left w-1/3">
+                  <div className="flex items-center h-7 px-2">
+                    <img src="/logo-lime.png" alt="Hologram" className="h-full w-auto object-contain" />
+                  </div>
+                </th>
+                <th scope="col" className="p-8 text-left text-gray-500 font-medium text-2xl font-display w-1/3">Legacy Carriers</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, i) => (
+                <motion.tr
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="border-b border-white/5 last:border-0 hover:bg-white/[0.03] transition-all duration-300 group"
+                >
+                  <th scope="row" className="p-8 font-medium text-white text-left pr-4 font-display text-base align-middle">{row.feature}</th>
+                  <td className="p-8 text-white align-middle">
+                    <div className="flex items-center gap-3">
+                      <div className="w-7 h-7 rounded-full bg-brand-lime/20 flex items-center justify-center text-brand-lime shrink-0 group-hover:bg-brand-lime group-hover:text-black transition-colors duration-300">
+                        <Check className="w-4 h-4" strokeWidth={3} />
+                      </div>
+                      <span className="text-sm">{row.us}</span>
                     </div>
-                  </th>
-                  <th scope="col" className="p-4 md:p-8 text-right md:text-left text-gray-500 font-medium text-xs md:text-2xl font-display w-1/3">Legacy Carriers</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row, i) => (
-                  <motion.tr
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08 }}
-                    className="border-b border-white/5 last:border-0 hover:bg-white/[0.03] transition-all duration-300 group"
-                  >
-                    <th scope="row" className="p-4 md:p-8 font-medium text-white text-left pr-2 md:pr-4 font-display text-xs md:text-base align-middle">{row.feature}</th>
-                    <td className="p-4 md:p-8 text-white align-middle">
-                      <div className="flex items-center gap-2 md:gap-3">
-                        <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-brand-lime/20 flex items-center justify-center text-brand-lime shrink-0 group-hover:bg-brand-lime group-hover:text-black transition-colors duration-300">
-                          <Check className="w-3 h-3 md:w-4 md:h-4" strokeWidth={3} />
-                        </div>
-                        <span className="text-[10px] md:text-sm line-clamp-2">{row.us}</span>
+                  </td>
+                  <td className="p-8 text-gray-500 align-middle">
+                    <div className="flex items-center gap-3">
+                      <div className="w-7 h-7 rounded-full bg-red-500/10 flex items-center justify-center text-red-400 shrink-0">
+                        <X className="w-4 h-4" strokeWidth={3} />
                       </div>
-                    </td>
-                    <td className="p-4 md:p-8 text-gray-500 align-middle">
-                      <div className="flex items-center gap-2 md:gap-3 justify-end md:justify-start">
-                        <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-red-500/10 flex items-center justify-center text-red-400 shrink-0">
-                          <X className="w-3 h-3 md:w-4 md:h-4" strokeWidth={3} />
-                        </div>
-                        <span className="text-[10px] md:text-sm line-clamp-2">{row.them}</span>
-                      </div>
-                    </td>
-                  </motion.tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                      <span className="text-sm">{row.them}</span>
+                    </div>
+                  </td>
+                </motion.tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile card stack */}
+        <div className="md:hidden space-y-4 px-4">
+          {rows.map((row, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
+              className="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-5 backdrop-blur-sm"
+            >
+              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 font-display">{row.feature}</div>
+              <div className="flex items-start gap-3 mb-3">
+                <div className="w-6 h-6 rounded-full bg-brand-lime/20 flex items-center justify-center text-brand-lime shrink-0 mt-0.5">
+                  <Check className="w-3 h-3" strokeWidth={3} />
+                </div>
+                <div>
+                  <div className="text-[10px] font-medium text-brand-lime/70 uppercase tracking-wider mb-0.5">Hologram</div>
+                  <span className="text-sm text-white leading-snug">{row.us}</span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center text-red-400 shrink-0 mt-0.5">
+                  <X className="w-3 h-3" strokeWidth={3} />
+                </div>
+                <div>
+                  <div className="text-[10px] font-medium text-gray-600 uppercase tracking-wider mb-0.5">Legacy Carriers</div>
+                  <span className="text-sm text-gray-500 leading-snug">{row.them}</span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </Section>
@@ -1086,7 +1199,7 @@ const FeatureGrid = () => {
               stiffness: 400,
               damping: 30
             }}
-            className={`${feature.span} p-8 md:p-10 rounded-3xl bg-white/[0.02] backdrop-blur-md border border-white/[0.06] group hover:border-brand-lime/20 transition-all duration-500 cursor-pointer`}
+            className={`${feature.span} p-8 md:p-10 rounded-3xl bg-white/[0.02] backdrop-blur-md border border-white/[0.06] group hover:border-brand-lime/20 transition-all duration-500`}
           >
             <div className="w-14 h-14 rounded-2xl bg-brand-lime/10 flex items-center justify-center text-brand-lime mb-8 group-hover:scale-110 group-hover:bg-brand-lime group-hover:text-black transition-all duration-500 border border-brand-lime/20">
               {feature.icon}
@@ -1183,7 +1296,7 @@ const Testimonial = () => {
         <div
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
-          className="bg-[#0b0d13] border border-white/10 rounded-[3rem] p-8 md:p-16 relative overflow-hidden group hover:border-brand-lime/20 transition-colors duration-500 min-h-[600px] flex flex-col justify-center animated-border">
+          className="bg-[#0b0d13] border border-white/10 rounded-2xl md:rounded-[3rem] p-6 pb-20 md:p-16 md:pb-24 relative overflow-hidden group hover:border-brand-lime/20 transition-colors duration-500 animated-border">
 
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 pointer-events-none"></div>
 
@@ -1197,40 +1310,40 @@ const Testimonial = () => {
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="grid md:grid-cols-[1.5fr,1fr] gap-12 items-center"
+                className="flex flex-col md:grid md:grid-cols-[1.5fr,1fr] gap-8 md:gap-12 md:items-center"
               >
-                <div className="flex flex-col justify-between h-full">
-                  <div className="mb-8">
-                    <div className="text-brand-lime mb-6">
-                      <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                <div className="flex flex-col justify-between">
+                  <div className="mb-6 md:mb-8">
+                    <div className="text-brand-lime mb-4 md:mb-6">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="md:w-10 md:h-10">
                         <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z" />
                       </svg>
                     </div>
-                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium leading-snug tracking-tight text-white min-h-[120px] font-display">
+                    <h3 className="text-xl md:text-3xl lg:text-4xl font-medium leading-snug tracking-tight text-white font-display">
                       "{testimonials[current].quote}"
                     </h3>
                   </div>
 
-                  <div className="flex items-center gap-4 pt-8 border-t border-white/5">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand-lime/20 to-brand-lime/5 flex items-center justify-center font-bold text-brand-lime border border-brand-lime/20 shrink-0 font-display">
+                  <div className="flex items-center gap-3 md:gap-4 pt-6 md:pt-8 border-t border-white/5">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-brand-lime/20 to-brand-lime/5 flex items-center justify-center font-bold text-brand-lime border border-brand-lime/20 shrink-0 font-display text-sm md:text-base">
                       {testimonials[current].initials}
                     </div>
                     <div>
-                      <div className="font-bold text-white font-display">{testimonials[current].author}</div>
-                      <div className="text-sm text-gray-400">{testimonials[current].role}, {testimonials[current].company}</div>
+                      <div className="font-bold text-white font-display text-sm md:text-base">{testimonials[current].author}</div>
+                      <div className="text-xs md:text-sm text-gray-400">{testimonials[current].role}, {testimonials[current].company}</div>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white/[0.03] rounded-3xl p-8 border border-white/5 backdrop-blur-md">
-                  <div className="space-y-8">
+                <div className="bg-white/[0.03] rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/5 backdrop-blur-md">
+                  <div className="grid grid-cols-2 gap-4 md:grid-cols-1 md:gap-0 md:space-y-8">
                     {testimonials[current].stats.map((stat, idx) => (
                       <div key={idx}>
-                        {idx > 0 && <div className="w-full h-px bg-white/5 my-8" />}
+                        {idx > 0 && <div className="hidden md:block w-full h-px bg-white/5 my-8" />}
                         <div>
-                          <div className="text-gray-400 text-sm font-medium mb-2 uppercase tracking-wider font-display">{stat.label}</div>
-                          <div className="text-4xl lg:text-5xl font-bold text-brand-lime tracking-tighter font-display">{stat.value}</div>
-                          <div className="text-sm text-gray-400 mt-1">{stat.sub}</div>
+                          <div className="text-gray-400 text-xs md:text-sm font-medium mb-1 md:mb-2 uppercase tracking-wider font-display">{stat.label}</div>
+                          <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-lime tracking-tighter font-display">{stat.value}</div>
+                          <div className="text-xs md:text-sm text-gray-400 mt-1">{stat.sub}</div>
                         </div>
                       </div>
                     ))}
@@ -1241,7 +1354,7 @@ const Testimonial = () => {
           </div>
 
           {/* Controls + Progress Dots */}
-          <div className="absolute bottom-8 left-8 right-8 flex items-center justify-between z-20">
+          <div className="absolute bottom-5 md:bottom-8 left-6 right-6 md:left-8 md:right-8 flex items-center justify-between z-20">
             <div className="flex gap-2">
               {testimonials.map((_, idx) => (
                 <button
@@ -1253,20 +1366,20 @@ const Testimonial = () => {
                 />
               ))}
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-2 md:gap-3">
               <button
                 onClick={prevSlide}
-                className="w-11 h-11 rounded-full border border-white/10 bg-white/5 hover:bg-brand-lime hover:text-black hover:border-brand-lime flex items-center justify-center transition-all duration-300 backdrop-blur-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-lime"
+                className="w-9 h-9 md:w-11 md:h-11 rounded-full border border-white/10 bg-white/5 hover:bg-brand-lime hover:text-black hover:border-brand-lime flex items-center justify-center transition-all duration-300 backdrop-blur-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-lime"
                 aria-label="Previous testimonial"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
               </button>
               <button
                 onClick={nextSlide}
-                className="w-11 h-11 rounded-full border border-white/10 bg-white/5 hover:bg-brand-lime hover:text-black hover:border-brand-lime flex items-center justify-center transition-all duration-300 backdrop-blur-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-lime"
+                className="w-9 h-9 md:w-11 md:h-11 rounded-full border border-white/10 bg-white/5 hover:bg-brand-lime hover:text-black hover:border-brand-lime flex items-center justify-center transition-all duration-300 backdrop-blur-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-lime"
                 aria-label="Next testimonial"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
               </button>
             </div>
           </div>
@@ -1888,7 +2001,6 @@ const App = () => {
         <DashboardSpotlight />
         <FeatureGrid />
         <Testimonial />
-        <IntegrationHub />
         <ProcessSteps />
         <CinematicCTA />
         <FAQ />
