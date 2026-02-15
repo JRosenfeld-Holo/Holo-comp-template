@@ -973,12 +973,12 @@ const LogoCloud = () => {
             }}
           >
             {scrollLogos.map((logo, index) => (
-              <div key={index} className="flex items-center justify-center group flex-shrink-0 px-4">
+              <div key={index} className="flex items-center justify-center group flex-shrink-0 w-[120px] md:w-[160px] h-10 md:h-12">
                 <img
                   src={logo.src}
                   alt={logo.name}
                   loading="lazy"
-                  className="h-8 md:h-10 w-auto object-contain opacity-40 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500 hover:scale-110"
+                  className="max-h-full max-w-full object-contain opacity-40 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500 hover:scale-110"
                 />
               </div>
             ))}
