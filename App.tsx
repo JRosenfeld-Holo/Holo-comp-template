@@ -1737,12 +1737,15 @@ const DashboardSpotlight = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <iframe
-                src="https://app.guidde.com/share/playbooks/vUznNL1bGLBJSjMZVZn7hs"
-                title="Hologram Dashboard Demo"
+                src="https://embed.app.guidde.com/playbooks/vUznNL1bGLBJSjMZVZn7hs?mode=videoOnly"
+                title="Dashboard Demo video"
                 className="absolute inset-0 w-full h-full bg-brand-deep"
                 frameBorder="0"
-                allow="autoplay; clipboard-write"
+                referrerPolicy="unsafe-url"
                 allowFullScreen
+                allow="clipboard-write"
+                sandbox="allow-popups allow-popups-to-escape-sandbox allow-scripts allow-forms allow-same-origin allow-presentation"
+                style={{ borderRadius: '10px' }}
               />
 
               {/* Close button */}
