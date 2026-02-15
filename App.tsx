@@ -350,7 +350,7 @@ const DashboardMockup = () => {
       <div className="w-56 bg-brand-deep border-r border-white/5 flex flex-col shrink-0 hidden md:flex font-sans">
         <div className="p-4 flex items-center gap-2 text-white font-bold text-sm mb-4 border-b border-white/5">
           <div className="h-5 flex items-center">
-            <img src="/Logo Lime@2x.png" alt="Hologram" className="h-full w-auto" />
+            <img src="/logo-lime.png" alt="Hologram" className="h-full w-auto" />
           </div>
         </div>
         <div className="px-2 space-y-0.5">
@@ -1815,7 +1815,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-16 mb-20 text-white">
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center mb-8 h-10">
-              <img src="/Logo Lime@2x.png" alt="Hologram" className="h-full w-auto" />
+              <img src="/logo-lime.png" alt="Hologram" className="h-full w-auto" />
             </div>
             <p className="text-gray-400 text-base mb-8 leading-relaxed">
               Connectivity for the next billion devices.
