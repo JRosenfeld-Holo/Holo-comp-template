@@ -660,7 +660,7 @@ const Navbar = () => {
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}>
-          <img src="/Logo Lime@2x.png" alt="Hologram" className="h-full w-auto" />
+          <img src="/logo-lime.png" alt="Hologram" className="h-full w-auto" />
         </div>
 
         <div className="hidden md:flex items-center gap-1">
@@ -890,7 +890,7 @@ const ComparisonTable = () => {
                   <th scope="col" className="p-4 md:p-8 text-left text-gray-400 font-medium text-xs md:text-base font-display w-1/3">Feature</th>
                   <th scope="col" className="p-4 md:p-8 text-left w-1/3">
                     <div className="flex items-center h-5 md:h-7 px-2">
-                      <img src="/Logo Lime@2x.png" alt="Hologram" className="h-full w-auto object-contain" />
+                      <img src="/logo-lime.png" alt="Hologram" className="h-full w-auto object-contain" />
                     </div>
                   </th>
                   <th scope="col" className="p-4 md:p-8 text-right md:text-left text-gray-500 font-medium text-xs md:text-2xl font-display w-1/3">Legacy Carriers</th>
