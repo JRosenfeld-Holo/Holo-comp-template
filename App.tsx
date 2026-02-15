@@ -626,7 +626,7 @@ const scrollToSection = (id: string) => {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const links = ['Compare', 'Platform', 'Customers', 'Pricing'];
+  const links = ['Compare', 'Platform', 'Customers'];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -674,10 +674,16 @@ const Navbar = () => {
               {link}
             </a>
           ))}
+          <a
+            href="#network"
+            className="text-sm font-medium text-gray-400 hover:text-brand-lime transition-colors px-4 py-2 rounded-xl hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-lime focus-visible:ring-offset-2 focus-visible:ring-offset-brand-deep"
+            onClick={(e) => handleLinkClick(e, 'network')}
+          >
+            Global Network
+          </a>
         </div>
 
         <div className="hidden md:flex items-center gap-4">
-          <a href="https://store.hologram.io" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-gray-300 hover:text-brand-lime transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-lime px-2 py-1">Get free SIM</a>
           <Button variant="primary" className="text-sm px-5 py-2" href="https://www.hologram.io/contact-sales/">Talk to an Expert</Button>
         </div>
 
@@ -706,7 +712,7 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="h-px bg-white/10 my-4" />
-              <a href="https://store.hologram.io" target="_blank" rel="noopener noreferrer" className="text-xl font-medium text-white">Get free SIM</a>
+              <a href="#network" className="text-2xl font-medium text-gray-300 font-display" onClick={(e) => handleLinkClick(e, 'network')}>Global Network</a>
               <Button variant="primary" className="w-full justify-center py-4 text-lg" href="https://www.hologram.io/contact-sales/">Talk to an Expert</Button>
             </div>
           </motion.div>
@@ -1279,7 +1285,7 @@ const IntegrationHub = () => {
   ];
 
   return (
-    <section className="relative py-32 md:py-44 overflow-hidden">
+    <section id="network" className="relative py-32 md:py-44 overflow-hidden scroll-mt-24">
       {/* Layered aurora backgrounds */}
       <div className="absolute inset-0 bg-gradient-to-b from-brand-deep via-[#040812] to-brand-deep pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-brand-lime/[0.04] rounded-full blur-[200px] pointer-events-none" />
